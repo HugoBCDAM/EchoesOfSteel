@@ -19,23 +19,25 @@ public class Game {
 	
 	JFrame ventana;
 	Container con;
-	JPanel titleNamePanel, startButtonPanel, mainTextPanel, choiceButtonPanel, playerPanel;
-	JLabel titleLabel, hpLabel, hpLabelNumber, weaponLabel, weaponLabelText;
-	JButton startButton, choice1, choice2, choice3, choice4;
+	JPanel titleNamePanel, startButtonPanel, mainTextPanel, choiceButtonPanel, playerPanel, chapter1NamePanel, chapter1TitlePanel, continueButtonPanel;
+	JLabel titleLabel, hpLabel, hpLabelNumber, weaponLabel, weaponLabelText, chapter1TitleLabel, chapter1DescLabel;
+	JButton startButton, choice1, choice2, choice3, choice4, continueButton;
 	JTextArea mainTextArea;
 	
 	Font titleFont = new Font("Times New Roman", Font.PLAIN, 90);
 	Font titleButtonFont = new Font("Times New Roman", Font.BOLD, 25);
+	Font chapterDesc = new Font("Times New Roman", Font.BOLD, 40);
 	Font normalFont = new Font("Times New Roman", Font.BOLD, 20);
 	
 	TitleScreenHandler tsHandler = new TitleScreenHandler();
 	ChoiceHandler choiceHandler = new ChoiceHandler();
+	ChapterHandler chapterHandler = new ChapterHandler();
 	
 	Border line = BorderFactory.createLineBorder(Color.RED, 1);
 	Border margin = BorderFactory.createEmptyBorder(10, 25, 10, 25);
 	
 	int playerHP;
-	String weapon, position;
+	String weapon, position, chapter;
 	
 	public static void main(String[] args) {
 		
@@ -66,7 +68,6 @@ public class Game {
 		startButton = new JButton("START");
 		startButton.setBackground(Color.black);
 		startButton.setForeground(Color.red);
-		
 		startButton.setBorder(BorderFactory.createCompoundBorder(line, margin));
 		startButton.setFont(titleButtonFont);
 		startButton.setFocusPainted(false);
@@ -82,10 +83,54 @@ public class Game {
 		
 	}
 	
-	public void createGameScreen() {
+	public void chapter1() {
 		
 		titleNamePanel.setVisible(false);
 		startButtonPanel.setVisible(false);
+		
+		chapter = "chapter1";
+		
+		chapter1NamePanel = new JPanel();
+		chapter1NamePanel.setBounds(100, 100, 600, 100);
+		chapter1NamePanel.setBackground(Color.black);
+		chapter1TitleLabel = new JLabel("Chapter 1:");
+		chapter1TitleLabel.setForeground(Color.red);
+		chapter1TitleLabel.setFont(titleFont);
+		
+		chapter1TitlePanel = new JPanel();
+		chapter1TitlePanel.setBounds(100, 250, 600, 50);
+		chapter1TitlePanel.setBackground(Color.black);
+		chapter1DescLabel = new JLabel("The Awakening");
+		chapter1DescLabel.setForeground(Color.red);
+		chapter1DescLabel.setFont(chapterDesc);
+		
+		chapter1NamePanel.add(chapter1TitleLabel);
+		chapter1TitlePanel.add(chapter1DescLabel);
+		
+		continueButtonPanel = new JPanel();
+		continueButtonPanel.setBounds(300, 350, 200, 100);
+		continueButtonPanel.setBackground(Color.black);
+		continueButton = new JButton("Continue");
+		continueButton.setBackground(Color.black);
+		continueButton.setForeground(Color.red);
+		continueButton.setBorder(BorderFactory.createCompoundBorder(line, margin));
+		continueButton.setFont(titleButtonFont);
+		continueButton.setFocusPainted(false);
+		continueButton.addActionListener(chapterHandler);
+		
+		continueButtonPanel.add(continueButton);
+		
+		con.add(chapter1NamePanel);
+		con.add(chapter1TitlePanel);
+		con.add(continueButtonPanel);
+		
+	}
+	
+	public void createGameScreen() {
+		
+		chapter1NamePanel.setVisible(false);
+		chapter1TitlePanel.setVisible(false);
+		continueButtonPanel.setVisible(false);
 		
 		mainTextPanel = new JPanel();
 		mainTextPanel.setBounds(200, 100, 600, 250);
@@ -237,6 +282,14 @@ public class Game {
 	}
 	
 	public class TitleScreenHandler implements ActionListener {
+		
+		public void actionPerformed(ActionEvent event) {
+			chapter1();
+		}
+		
+	}
+	
+	public class ChapterHandler implements ActionListener {
 		
 		public void actionPerformed(ActionEvent event) {
 			createGameScreen();
