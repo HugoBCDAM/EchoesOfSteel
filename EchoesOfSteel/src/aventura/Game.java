@@ -308,24 +308,17 @@ public class Game {
 					switch(choice) {
 						case "c1": woodenDoor(); break;
 						case "c2": corridor(); break;
-						case "c3": break;
-						case "c4": break;
 					}
 					break;
 				case "woodenDoor":
 					switch(choice) {
 						case "c1": break;
 						case "c2": break;
-						case "c3": break;
-						case "c4": break;
 					}
 					break;
 				case "corridor":
 					switch(choice) {
 						case "c1": break;
-						case "c2": break;
-						case "c3": break;
-						case "c4": break;
 					}
 					break;
 			}
