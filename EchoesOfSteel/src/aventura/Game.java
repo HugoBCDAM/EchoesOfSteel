@@ -36,7 +36,7 @@ public class Game {
 	Border line = BorderFactory.createLineBorder(Color.RED, 1);
 	Border margin = BorderFactory.createEmptyBorder(10, 25, 10, 25);
 	
-	int playerHP;
+	int playerHP, playerDamage, swordVitality;
 	String weapon, position, chapter;
 	
 	public static void main(String[] args) {
@@ -56,9 +56,9 @@ public class Game {
 		con = ventana.getContentPane();
 		
 		titleNamePanel = new JPanel();
-		titleNamePanel.setBounds(100, 100, 600, 150);
+		titleNamePanel.setBounds(35, 100, 700, 150);
 		titleNamePanel.setBackground(Color.black);
-		titleLabel = new JLabel("Echoes Of Steel");
+		titleLabel = new JLabel("Whispers Of Time");
 		titleLabel.setForeground(Color.red);
 		titleLabel.setFont(titleFont);
 		
@@ -233,6 +233,8 @@ public class Game {
 		
 		playerHP = 20;
 		weapon = "Rusty Sword";
+		playerDamage = 2;
+		swordVitality = 1;
 		
 		weaponLabelText.setText(weapon);
 		hpLabelNumber.setText("" + playerHP);
@@ -281,6 +283,54 @@ public class Game {
 		
 	}
 	
+	public void corridorEvent1() {
+		
+		position = "corridorEvent1";
+		
+		mainTextPanel.setBounds(250, 150, 600, 150);	
+		mainTextArea.setText("A shadow attacks you by surprise.\n\nYou lose 2 hp.\n\nWhat would you do?:");
+		choice1.setText("Attack blindly");
+		choice2.setText("Run");
+		choice3.setText("-----------------");
+		choice4.setText("-----------------");
+		
+		playerHP -= 2;
+		hpLabelNumber.setText("" + playerHP);
+		
+	}
+	
+	public void blindAttack() {
+		
+		position = "blindAttack";
+		
+		mainTextPanel.setBounds(250, 110, 600, 200);
+		mainTextArea.setText("You hit something.\nThe shadow disappears.\n\nYour sword whispers: \"...known form...\""
+				+ "\n\nDamage increases +1\n\nYou see a large room with an iron door");
+		choice1.setText(">");
+		choice2.setText("-----------------");
+		choice3.setText("-----------------");
+		choice4.setText("-----------------");
+		
+		playerDamage++;
+		swordVitality++;
+		
+	}
+	
+	public void corridorRun() {
+		
+		position = "corridorRun";
+		
+		mainTextPanel.setBounds(210, 180, 600, 150);
+		mainTextArea.setText("You escape, but you lose an additional 1 hp.\n\nYou arrive at a large room with an iron door.");
+		choice1.setText(">");
+		choice2.setText("-----------------");
+		choice3.setText("-----------------");
+		choice4.setText("-----------------");
+		
+		playerHP--;
+		hpLabelNumber.setText("" + playerHP);
+		
+	}
 	public class TitleScreenHandler implements ActionListener {
 		
 		public void actionPerformed(ActionEvent event) {
@@ -318,7 +368,13 @@ public class Game {
 					break;
 				case "corridor":
 					switch(choice) {
-						case "c1": break;
+						case "c1": corridorEvent1(); break;
+					}
+					break;
+				case "corridorEvent1":
+					switch(choice) {
+						case "c1": blindAttack(); break;
+						case "c2": corridorRun(); break;
 					}
 					break;
 			}
